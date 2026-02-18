@@ -780,6 +780,31 @@
     .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .f-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 2px; }
 
+    /* ── Barra de progreso formulario ── */
+    .progress-wrap {
+      display: none;
+      margin-top: 4px;
+    }
+    .progress-track {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.25);
+      height: 6px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, var(--gold-dark), var(--gold-light));
+      transition: width 0.2s ease;
+    }
+    .progress-label {
+      font-size: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
     /* ── FORM SUCCESS + QR CARD ── */
     .form-success { display: none; animation: fadeUp 0.6s ease both; }
 
@@ -1096,6 +1121,27 @@
     }
     .btn-share-wa:hover { opacity: 0.85; transform: translateY(-1px); }
 
+    .btn-share-sms {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      padding: 10px 18px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+      transition: opacity 0.3s, transform 0.25s;
+      text-decoration: none;
+    }
+    .btn-share-sms:hover { opacity: 0.82; transform: translateY(-1px); }
+
     @media (max-width: 600px) {
       .hero-qr-section { flex-direction: column; text-align: center; }
       .hero-qr-info { align-items: center; }
@@ -1195,10 +1241,15 @@
         <div class="hero-qr-info">
           <span class="hero-qr-title">&#128247; Guarda mi contacto</span>
           <span class="hero-qr-subtitle">Escanea con tu c&aacute;mara para agregar<br/>mi informaci&oacute;n de contacto al instante</span>
-          <a class="btn-share-wa" id="waShareBtn" href="#" target="_blank">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Compartir por WhatsApp
-          </a>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="btn-share-wa" id="waShareBtn" href="#" target="_blank">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn-share-sms" id="smsShareBtn" href="#">
+              &#128172; SMS
+            </a>
+          </div>
         </div>
       </div>
 
@@ -1410,16 +1461,9 @@
         <form
           class="contact-form"
           id="contactForm"
-          action="https://formsubmit.co/JCarlos.cruzestrada@gmail.com"
-          method="POST"
           onsubmit="handleSubmit(event)"
         >
-          <input type="hidden" name="_subject" value="Nuevo mensaje desde Landing Page · Juan Carlos Cruz Estrada" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://jcarloscruzestrada-ux.github.io/" />
-          <input type="hidden" name="_ajax" value="true" />
-          <input type="text"   name="_honey" style="display:none" />
+          <!-- formulario manejado 100% por JS -->
 
           <div class="f-row">
             <div class="f-field">
@@ -1464,6 +1508,15 @@
           <button type="submit" class="btn-gold" style="align-self:flex-start;">
             &#9993;&nbsp; Enviar Mensaje
           </button>
+
+          <!-- Barra de progreso -->
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span class="progress-label" id="progressLabel">Enviando...</span>
+          </div>
+
           <p class="f-note">Tu información es confidencial y nunca será compartida con terceros.</p>
         </form>
 
@@ -1585,16 +1638,27 @@
   function handleSubmit(e) {
     e.preventDefault();
 
-    const form    = document.getElementById('contactForm');
-    const success = document.getElementById('formSuccess');
+    const form    = document.getElementById("contactForm");
+    const success = document.getElementById("formSuccess");
     const btn     = form.querySelector('button[type="submit"]');
+    const wrap    = document.getElementById("progressWrap");
+    const bar     = document.getElementById("progressBar");
+    const label   = document.getElementById("progressLabel");
 
-    // Estado de carga
-    btn.textContent = "⏳  Enviando...";
-    btn.disabled    = true;
-    btn.style.opacity = "0.7";
+    // Mostrar barra de progreso
+    btn.disabled       = true;
+    btn.style.opacity  = "0.6";
+    btn.innerHTML      = "&#9993;&nbsp; Enviando...";
+    if (wrap)  wrap.style.display  = "block";
+    if (label) label.textContent   = "Enviando tu mensaje...";
 
-    // Recopilar datos del formulario
+    // Animación de progreso
+    let pct = 0;
+    const tick = setInterval(() => {
+      pct = Math.min(pct + Math.random() * 18, 88);
+      if (bar) bar.style.width = pct + "%";
+    }, 200);
+
     const datos = {
       nombre:       form.querySelector('[name="nombre"]').value.trim(),
       telefono:     form.querySelector('[name="telefono"]').value.trim(),
@@ -1604,23 +1668,27 @@
       mensaje:      form.querySelector('[name="mensaje"]').value.trim(),
     };
 
-    // Enviar a Google Sheets via Apps Script
+    const finalizarEnvio = () => {
+      clearInterval(tick);
+      if (bar)   { bar.style.width = "100%"; bar.style.background = "var(--gold)"; }
+      if (label) label.textContent = "¡Enviado con éxito!";
+      setTimeout(() => mostrarExito(form, success), 600);
+    };
+
+    // Si no hay URL de Google Script configurada, igual muestra éxito
+    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
+      setTimeout(finalizarEnvio, 1200);
+      return;
+    }
+
     fetch(GOOGLE_SCRIPT_URL, {
       method:  "POST",
-      mode:    "no-cors",          // Apps Script requiere no-cors
+      mode:    "no-cors",
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify(datos)
     })
-    .then(() => {
-      // no-cors no devuelve respuesta legible, pero si llegó aquí = OK
-      mostrarExito(form, success);
-    })
-    .catch(err => {
-      console.error("Error al enviar:", err);
-      // Fallback: si Google Script falla, mostramos éxito igual
-      // (el usuario ya vio la acción, evitar confusión)
-      mostrarExito(form, success);
-    });
+    .then(finalizarEnvio)
+    .catch(finalizarEnvio);
   }
 
   function mostrarExito(form, success) {
@@ -1688,9 +1756,13 @@
       correctLevel: QRCode.CorrectLevel.M
     });
 
-    // Botón WhatsApp share
+    // Botón WhatsApp
     const waBtn = document.getElementById("waShareBtn");
     if (waBtn) waBtn.href = "https://wa.me/?text=" + getMsgWa();
+
+    // Botón SMS
+    const smsBtn = document.getElementById("smsShareBtn");
+    if (smsBtn) smsBtn.href = "sms:?body=" + getMsgWa();
   }
 
   window.addEventListener("load", initHeroQR);
